@@ -6,7 +6,7 @@ const app = express();
 mongoose.Promise = global.Promise;
 
 // middleware_routing
-app.use('/api/v1.0', require('./routing/version_1.0/hospital'));
+app.use('/api/v1.0', require('./routing/version_1.0/hospital_r'));
 
 // middleware_error_handling
 app.use((err, req, res, next) => {
