@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const locationSchema = new Schema({
     address : {
         type: String,
-        require: [true, 'hospital\'s address is required']
+        required: [true, 'hospital\'s address is required']
     },
     districts: {
         type: String,
-        require: [true, 'districts is required']
+        required: [true, 'districts is required']
     },
     postal_code: {
         type: Number,
@@ -17,38 +17,38 @@ const locationSchema = new Schema({
     },
     phone: {
         type: String,
-        require: [true, 'phone number is required']
+        required: [true, 'phone number is required']
     },
     fax: {
         type: String,
-        require: [true, 'fax number is required']
+        required: [true, 'fax number is required']
     },
     email: {
         type: String,
-        require:  [true, 'email is required']
+        required:  [true, 'email is required']
     }
 });
 
 const hospitalSchema = new Schema({
     code: {
         type: Number,
-        require: [true, 'hospital\'s code is required']
+        required: [true, 'hospital\'s code is required']
     },
     name: {
         type: String,
-        require: [true, 'hospital\'s name is required']
+        required: [true, 'hospital\'s name is required']
     },
     type: {
         type: String,
-        require: [true, 'hospital\'s type is required']
+        required: [true, 'hospital\'s type is required']
     },
     class: {
         type: String,
-        require: [true, 'hospital\'s class is required']
+        required: [true, 'hospital\'s class is required']
     },
     owner: {
         type: String,
-        require: [true, 'hospital\'s owner is required']
+        required: [true, 'hospital\'s owner is required']
     },
     location: locationSchema,
     last_update: {
