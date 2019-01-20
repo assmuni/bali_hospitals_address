@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
+mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
 
 mongoose.Promise = global.Promise;
 

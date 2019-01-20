@@ -16,12 +16,11 @@ const locationSchema = new Schema({
         default: '0'
     },
     phone: {
-        type: String,
-        required: [true, 'phone number is required']
+        type: String
     },
     fax: {
         type: String,
-        required: [true, 'fax number is required']
+        efault: '0'
     },
     email: {
         type: String,
