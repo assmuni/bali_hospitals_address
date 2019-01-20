@@ -21,7 +21,11 @@ app.use((err, req, res, next) => {
     res.status('422').send({error: err.message});
 });
 
+app.get('/', (req, res) => {
+    res.json({message: 'connected'});
+});
+
 const portNumber = 3000;
-app.listen(process.env.port || portNumber, () => {
-    console.info(`server online at localhost:${portNumber}`);
+app.listen(process.env.PORT || portNumber, () => {
+    console.info(`server online at,, can you guest`);
 });
