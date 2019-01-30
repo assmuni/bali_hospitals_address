@@ -10,10 +10,10 @@ Data source: http://sirs.yankes.kemkes.go.id/rsonline/report/
 ### Routes
 * GET &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [/hospital](https://balihospitaladdress.herokuapp.com/api/v1.0/hospital) 
 * POST &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /hospital
-* PUT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /hospital/[id]
-* DELETE &nbsp;&nbsp;&nbsp; /hospital/[id]
+* PUT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /hospital/:id
+* DELETE &nbsp;&nbsp;&nbsp; /hospital/:id
 
 ### To run this app locally :
-* Clone thisr repo
+* Clone this repo
 * Run `npm install`
 * Open browser and server will be in `http://127.0.0.1:3000/`
