@@ -13,8 +13,9 @@ mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
 app.use(bodyParser.json());
 
 // middleware_routing
-app.use('/api/v2.0', require('./hospital/hospital_r'));
 app.use('/api/v2.0', require('./user/user_r'));
+app.use('/auth', require('./middlewares/auth_r'));
+app.use('/api/v2.0', require('./hospital/hospital_r'));
 
 // middleware_error_handling
 app.use((err, req, res, next) => {
@@ -27,5 +28,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(process.env.PORT || 3000, function () {
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log("Express server listening on port", this.address().port);
 });
