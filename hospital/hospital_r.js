@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Hospital = require('../../models/version_1.0/hospital_m');
+const Hospital = require('../hospital/hospital_m');
 
 // GET
 router.get('/hospital', (req, res, next) => {
