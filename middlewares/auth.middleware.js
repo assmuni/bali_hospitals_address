@@ -34,3 +34,25 @@ exports.createToken = (req, res, next) => {
         }
     });
 }
+
+exports.checkCredential = (req, res, next) => {
+    var authToken = req.headers.authorization;
+    if (!authToken) {
+        res.status(401).json({
+            auth: false,
+            message: 'Token not provided'
+        });
+    } else {
+        jwt.verify(authToken, jwtSecret, (err, auth) => {
+            if (!err) {
+                next();
+            } else {
+                res.status(401).json({
+                    auth: false,
+                    message: err.message
+                });
+            }
+        });
+    }
+
+}

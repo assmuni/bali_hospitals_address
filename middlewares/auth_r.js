@@ -7,6 +7,13 @@ router.post('/login', [middleAuth.checkEmail, middleAuth.createToken], (req, res
         auth: true,
         token: req.token
     });
-})
+});
+
+router.get('/logout', (req, res) => {
+    res.status(201).json({
+        atuh: false,
+        token: null
+    });
+});
 
 module.exports = router;
