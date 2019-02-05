@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
+const userRouter = require('./user/user_r');
+const hospitalRouter = require('./hospital/hospital_r');
 
 mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
 // mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
@@ -13,13 +15,11 @@ mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
 app.use(bodyParser.json());
 
 // middleware_routing
-app.use('/api/v2.0', require('./user/user_r'));
 app.use('/auth', require('./middlewares/auth_r'));
-app.use('/api/v2.0', require('./hospital/hospital_r'));
+app.use('/v2', [userRouter, hospitalRouter]);
 
 // middleware_error_handling
 app.use((err, req, res, next) => {
-    // console.log(err);
     res.status('422').send({error: err.message});
 });
 
