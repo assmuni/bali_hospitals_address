@@ -3,24 +3,28 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-const userRouter = require('./user/user_r');
+// const router = express.Router();
+
+// const userRouter = require('./user/user_r');
+// const hospitalRouter = require('./hospital/hospital_r');
+
 const hospitalRouter = require('./hospital/hospital_r');
 
-// mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
-mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
-
-// mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
+// mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
 
 // middleware bodyparser
 app.use(bodyParser.json());
 
 // middleware_routing
-app.use('/auth', require('./middlewares/auth_r'));
-app.use('/v2', [userRouter, hospitalRouter]);
+// app.use('/auth', require('./middlewares/auth_r'));
+// app.use('/v2', [userRouter, hospitalRouter]);
+
+hospitalRouter.routersConfig(app);
 
 // middleware_error_handling
 app.use((err, req, res, next) => {
-    res.status('422').send({error: err.message});
+    res.status('422').send({message: err.message});
 });
 
 app.get('/', (req, res) => {

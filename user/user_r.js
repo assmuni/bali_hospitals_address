@@ -23,5 +23,13 @@ router.post('/user/reg', (req, res, next) => {
     })
 });
 
+router.get('/users', (req, res, next) => {
+    User.find({}, {_id:0, __v:0, password:0})
+    .then(data => {
+        res.status(200).json(data);
+    })
+    .catch(next); 
+});
+
 module.exports = router;
 
