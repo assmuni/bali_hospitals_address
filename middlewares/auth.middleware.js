@@ -3,7 +3,7 @@ const jwtSecret = require('./secret.env').key_s;
 const bcrypt = require('bcryptjs');
 const User = require('../user/user_m');
 
-exports.checkEmail = (req, res, next) => {
+exports.check_email = (req, res, next) => {
     User.findOne({email: req.body.email})
         .then(data => {
             if (!data) {
@@ -24,7 +24,7 @@ exports.checkEmail = (req, res, next) => {
         });
 }
 
-exports.createToken = (req, res, next) => {
+exports.create_token = (req, res, next) => {
     jwt.sign(req.dataAuth, jwtSecret, {expiresIn: '24h'}, (err, token) => {
         if (err) {
             res.status(401).json({err: err})
@@ -35,7 +35,7 @@ exports.createToken = (req, res, next) => {
     });
 }
 
-exports.checkCredential = (req, res, next) => {
+exports.check_credential = (req, res, next) => {
     var authToken = req.headers.authorization;
     if (!authToken) {
         res.status(401).json({

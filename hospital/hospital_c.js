@@ -1,36 +1,39 @@
 const Hospital = require("./hospital_m");
 
-exports.getAll = (req, res, next) => {
+exports.get_all = (req, res, next) => {
     Hospital.find({})
         .then(data => {
             res.status(200).json({results: data});
-        }).catch(next);
+        })
+        .catch(next);
 }
 
-exports.getOneById = (req, res, next) => {
-    Hospital.findById({_id: req.params.id})
+exports.get_one = (req, res, next) => {
+    Hospital.findOne({_id: req.params.id})
         .then(data => {
             res.status(200).json({results: data});
-        }).catch(next);
+        })
+        .catch(next);
 }
 
 exports.create = (req, res, next) => {
-    Hospital.create(req.body).then(data => {
-        res.status(201).send(data);
-    }).catch(next);
+    Hospital.create(req.body)
+        .then(data => {
+            res.status(201).send(data);
+        })
+        .catch(next);
 }
 
 exports.update = (req, res, next) => {
-    Hospital.findByIdAndUpdate({ _id: req.params.id }, req.body).then(() => {
-        Hospital.findById({_id: req.params.id}).then(data => {
+    Hospital.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+        .then(data => {
             res.send(data);
-        });
-    }).catch(next);
-    // res.send(req.params.id);
+        })
+        .catch(next)
 }
 
 exports.delete = (req, res, next) => {
-    Hospital.findByIdAndDelete({_id: req.params.id}).then(data => {
+    Hospital.findOneAndDelete({_id: req.params.id}).then(data => {
         res.send(data);
     }).catch(next);
 }

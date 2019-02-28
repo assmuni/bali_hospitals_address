@@ -1,6 +1,6 @@
 const Hospital = require('../hospital/hospital_m');
 
-exports.getData = (req, res, next) => {
+exports.get_data = (req, res, next) => {
     if (!req.query.name) return next();
 
     Hospital.find({ name: { $regex: '.*' + req.query.name + '.*', $options: 'i'}}, (err, data) => {
