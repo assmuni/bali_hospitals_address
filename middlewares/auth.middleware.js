@@ -7,19 +7,20 @@ exports.check_email = (req, res, next) => {
     User.findOne({email: req.body.email})
         .then(data => {
             if (!data) {
-                res.status('401').json({message: 'email not found'});
+                res.status(404).json({message: 'email not found'});
             } else {
                 bcrypt.compare(req.body.password, data.password, (err, auth) => {
                     if (!auth) {
-                        res.status(401).json({auth: auth, token: null});
+                        res.status(401).json({ auth: auth, token: null });
                     } else {
                         req.dataAuth = {
                             id: data._id,
-                            name: data.name
+                            name: data.name,
+                            permissionLevel: data.permissionLevel
                         }
                         next();
                     }
-                })
+                });
             }
         });
 }
@@ -45,6 +46,7 @@ exports.check_credential = (req, res, next) => {
     } else {
         jwt.verify(authToken, jwtSecret, (err, auth) => {
             if (!err) {
+                req.jwt = auth;
                 next();
             } else {
                 res.status(401).json({
@@ -54,5 +56,14 @@ exports.check_credential = (req, res, next) => {
             }
         });
     }
+}
 
+exports.check_user_level = (param_level) => {
+    return (req, res, next) => {
+        if (param_level === parseInt(req.jwt.permissionLevel)) {
+            next();
+        } else {
+            res.status(403).json({message: 'Permission level not accepted'});
+        }
+    }
 }

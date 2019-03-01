@@ -8,7 +8,9 @@ const app = express();
 // const userRouter = require('./user/user_r');
 // const hospitalRouter = require('./hospital/hospital_r');
 
+const authRouter = require('./auth/auth_r');
 const hospitalRouter = require('./hospital/hospital_r');
+const userRouter = require('./user/user_r');
 
 mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
 // mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
@@ -20,7 +22,9 @@ app.use(bodyParser.json());
 // app.use('/auth', require('./middlewares/auth_r'));
 // app.use('/v2', [userRouter, hospitalRouter]);
 
+authRouter.routersConfig(app);
 hospitalRouter.routersConfig(app);
+userRouter.routersConfig(app);
 
 // middleware_error_handling
 app.use((err, req, res, next) => {
