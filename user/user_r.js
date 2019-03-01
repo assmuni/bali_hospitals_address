@@ -1,36 +1,29 @@
-const User = require('./user_m');
-const bcrypt = require('bcryptjs');
+const userMid = require('./user_c');
+const middleAuth = require('../middlewares/auth.middleware');
+const config = require('../middlewares/secret.env');
+
+const LV_ADMIN = config.permisionLevels.SUPER_ADMIN;
+const LV_USER = config.permisionLevels.USER;
 
 exports.routersConfig = (app) => {
 
-    app.post('/v2/user/reg', (req, res, next) => {
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
-                User.create({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: hash,
-                    permissionLevel: req.body.permissionLevel
-                })
-                    .then(data => {
-                        User.findOne({ email: data.email }, (err, data) => {
-                            if (err) return res.status('401').json({ message: err.message });
-                            res.status(201).json({
-                                id: data._id
-                            });
-                        })
-                    }).catch(next);
-            });
-        })
-    });
+    app.get('/v2/users', [
+        middleAuth.check_credential,
+        middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
+        userMid.get_all
+    ]);
 
-    app.get('/v2/users', (req, res, next) => {
-        User.find({}, { _id: 0, __v: 0, password: 0 })
-            .then(data => {
-                res.status(200).json(data);
-            })
-            .catch(next);
-    });
+    app.post('/v2/user/reg', [
+        userMid.create
+    ]);
+
+    app.patch('/v2/user/:id', [
+        middleAuth.check_credential,
+        middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
+        middleAuth.check_status_and_permission_level,
+        userMid.update
+    ]);
+
 
 }
 
