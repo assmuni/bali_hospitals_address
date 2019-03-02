@@ -17,6 +17,7 @@ exports.check_auth = (req, res, next) => {
                         req.dataAuth = {
                             id: data._id,
                             name: data.name,
+                            email: data.email,
                             permissionLevel: data.permissionLevel
                         }
                         return next();
@@ -70,16 +71,16 @@ exports.check_permission_level = (params_level) => {
 }
 
 exports.check_status_and_permission_level = (req, res, next) => {
-    let obj = { 'id': req.jwt.id, 'name': req.jwt.name, 'permissionLevel': req.jwt.permissionLevel, 'id_params': req.params.id, 'permission_level_needed': LV_ADMIN };
-    console.log(obj);
-
-
-
-
-    // FAILLL WAIT
-    if ((req.jwt.id === req.params.id) || (parseInt(req.jwt.permissionLevel) === LV_ADMIN)) {
-        next();
+    // let obj = { 'id': req.jwt.id, 'name': req.jwt.name, 'permissionLevel': req.jwt.permissionLevel, 'id_params': req.params.id, 'permission_level_needed': LV_ADMIN };
+    // console.log(obj);
+    
+    if (req.jwt.id === req.params.id) {
+        return next();
     } else {
-        res.status(403).json({ message: 'Permission level or status not accepted' });
+        if (req.jwt.permissionLevel === LV_ADMIN) {
+            return next();
+        } else {
+            return res.status(403).json({ message: 'Permission level or status not accepted' });
+        }
     }
 }

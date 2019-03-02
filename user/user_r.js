@@ -24,6 +24,12 @@ exports.routersConfig = (app) => {
         userMid.update
     ]);
 
+    app.delete('/v2/user/:id', [
+        middleAuth.check_credential,
+        middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
+        middleAuth.check_status_and_permission_level,
+        userMid.delete
+    ]);
 
 }
 

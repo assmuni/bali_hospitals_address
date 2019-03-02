@@ -30,10 +30,32 @@ exports.get_all = (req, res, next) => {
         .catch(next);
 }
 
+// exports.update = (req, res, next) => {
+//     // User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+//     // User.findOneAndUpdate({ _id: req.params.id }, {$set: {'name': req.body.name, 'email': req.body.email}}, { new: true })
+//     User.findOneAndUpdate({ _id: req.params.id }, {'name': req.body.name, 'email': req.body.email}, { new: true })
+//         .then(data => {
+//             res.send(data);
+//         })
+//         .catch(next)
+// }
+
 exports.update = (req, res, next) => {
-    User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+
+    // keeping data when not change
+    for (let key in req.body) {
+        req.jwt[key] = req.body[key]
+    }
+
+    User.findOneAndUpdate({'_id': req.params.id}, {$set: {'name': req.jwt.name, 'email': req.jwt.email}}, {new: true})
         .then(data => {
-            res.send(data);
+            res.status(201).json(data);
         })
-        .catch(next)
+        .catch(next);
+}
+
+exports.delete = (req, res, next) => {
+    User.findOneAndDelete({ _id: req.params.id }).then(data => {
+        res.send(data);
+    }).catch(next);
 }
