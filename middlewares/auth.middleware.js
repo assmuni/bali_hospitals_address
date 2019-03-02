@@ -71,9 +71,6 @@ exports.check_permission_level = (params_level) => {
 }
 
 exports.check_status_and_permission_level = (req, res, next) => {
-    // let obj = { 'id': req.jwt.id, 'name': req.jwt.name, 'permissionLevel': req.jwt.permissionLevel, 'id_params': req.params.id, 'permission_level_needed': LV_ADMIN };
-    // console.log(obj);
-    
     if (req.jwt.id === req.params.id) {
         return next();
     } else {

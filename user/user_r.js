@@ -7,24 +7,24 @@ const LV_USER = config.permisionLevels.USER;
 
 exports.routersConfig = (app) => {
 
-    app.get('/v2/users', [
+    app.get('/v3/users', [
         middleAuth.check_credential,
         middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
         userMid.get_all
     ]);
 
-    app.post('/v2/user/reg', [
+    app.post('/v3/user/reg', [
         userMid.create
     ]);
 
-    app.patch('/v2/user/:id', [
+    app.patch('/v3/user/:id', [
         middleAuth.check_credential,
         middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
         middleAuth.check_status_and_permission_level,
         userMid.update
     ]);
 
-    app.delete('/v2/user/:id', [
+    app.delete('/v3/user/:id', [
         middleAuth.check_credential,
         middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
         middleAuth.check_status_and_permission_level,

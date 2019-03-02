@@ -16,6 +16,12 @@ exports.get_one = (req, res, next) => {
         .catch(next);
 }
 
+exports.get_search = (req, res, next) => {
+    res.json({
+        result: req.query.search
+    });
+}
+
 exports.create = (req, res, next) => {
     Hospital.create(req.body)
         .then(data => {

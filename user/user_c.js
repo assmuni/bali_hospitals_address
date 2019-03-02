@@ -30,16 +30,6 @@ exports.get_all = (req, res, next) => {
         .catch(next);
 }
 
-// exports.update = (req, res, next) => {
-//     // User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-//     // User.findOneAndUpdate({ _id: req.params.id }, {$set: {'name': req.body.name, 'email': req.body.email}}, { new: true })
-//     User.findOneAndUpdate({ _id: req.params.id }, {'name': req.body.name, 'email': req.body.email}, { new: true })
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(next)
-// }
-
 exports.update = (req, res, next) => {
 
     // keeping data when not change
