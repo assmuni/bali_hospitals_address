@@ -17,9 +17,11 @@ exports.get_one = (req, res, next) => {
 }
 
 exports.get_search = (req, res, next) => {
-    res.json({
-        result: req.query.search
-    });
+    Hospital.find({ name: { $regex: req.query.search, $options: 'i' } })
+        .then(data => {
+            res.status(200).json({result: data});
+        })
+        .catch(next);
 }
 
 exports.create = (req, res, next) => {
