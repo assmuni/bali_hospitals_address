@@ -13,7 +13,7 @@ exports.create = (req, res, next) => {
                 .then(data => {
                     User.findOne({ email: data.email }, (err, data) => {
                         if (err) return res.status('401').json({ message: err.message });
-                        res.status(201).json({
+                        return res.status(201).json({
                             id: data._id
                         });
                     })
@@ -25,7 +25,7 @@ exports.create = (req, res, next) => {
 exports.get_all = (req, res, next) => {
     User.find({}, { name: 1, dateCreated: 1 })
         .then(data => {
-            res.status(200).json(data);
+            return res.status(200).json(data);
         })
         .catch(next);
 }
@@ -39,13 +39,39 @@ exports.update = (req, res, next) => {
 
     User.findOneAndUpdate({'_id': req.params.id}, {$set: {'name': req.jwt.name, 'email': req.jwt.email}}, {new: true})
         .then(data => {
-            res.status(201).json(data);
+            if (data !== null) {
+                return res.status(200).json({
+                    message: 'update success',
+                    result: {
+                        _id: data.id,
+                        name: data.name
+                    }
+                })
+            } else {
+                return res.status(200).json({
+                    mesage: 'update failur, data not found',
+                    result: data
+                })
+            }
         })
         .catch(next);
 }
 
 exports.delete = (req, res, next) => {
     User.findOneAndDelete({ _id: req.params.id }).then(data => {
-        res.send(data);
+        if (data !== null) {
+            return res.status(200).json({
+                message: 'delete success',
+                result: {
+                    _id: data.id,
+                    name: data.name
+                }
+            })
+        } else {
+            return res.status(200).json({
+                mesage: 'delete failur, data not found',
+                result: data
+            })
+        }
     }).catch(next);
 }
