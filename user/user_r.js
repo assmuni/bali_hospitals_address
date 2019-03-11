@@ -13,6 +13,18 @@ exports.routersConfig = (app) => {
         userMid.get_all
     ]);
 
+    app.get('/v3/user/who', [
+        middleAuth.check_credential,
+        userMid.who
+    ]);
+
+    app.get('/v3/user/:id', [
+        middleAuth.check_credential,
+        middleAuth.check_permission_level([LV_ADMIN, LV_USER]),
+        middleAuth.check_status_and_permission_level,
+        userMid.get_one
+    ]);
+
     app.post('/v3/user/reg', [
         userMid.create
     ]);

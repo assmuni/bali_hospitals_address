@@ -12,8 +12,8 @@ const authRouter = require('./auth/auth_r');
 const hospitalRouter = require('./hospital/hospital_r');
 const userRouter = require('./user/user_r');
 
-// mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
-mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/portofolio', { useNewUrlParser: true });
+// mongoose.connect('mongodb://userHospital:hospital123@ds157509.mlab.com:57509/portofolio', { useNewUrlParser: true });
 
 // middleware bodyparser
 app.use(bodyParser.json());

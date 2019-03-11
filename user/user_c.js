@@ -1,6 +1,9 @@
 const User = require('./user_m');
 const bcrypt = require('bcryptjs');
 
+const jwt = require('jsonwebtoken');
+const config = require('../middlewares/secret.env');
+
 exports.create = (req, res, next) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -26,6 +29,24 @@ exports.get_all = (req, res, next) => {
     User.find({}, { name: 1, dateCreated: 1 })
         .then(data => {
             return res.status(200).json(data);
+        })
+        .catch(next);
+}
+
+exports.get_one = (req, res, next) => {
+    User.findOne({ _id: req.params.id }, {password: 0})
+        .then(data => {
+            if (data !== null) {
+                return res.status(200).json({
+                    message: 'search success',
+                    result: data
+                })
+            } else {
+                return res.status(200).json({
+                    mesage: 'search failur, data not found',
+                    result: data
+                })
+            }
         })
         .catch(next);
 }
@@ -74,4 +95,24 @@ exports.delete = (req, res, next) => {
             })
         }
     }).catch(next);
+}
+
+exports.who = (req, res, next) => {
+    try {
+        var authToken = req.headers.authorization;
+        jwt.verify(authToken, config.key_s, (err, auth) => {
+            if (!err) {
+                res.status(201).json({
+                    result: auth
+                });
+            } else {
+                return res.status(401).json({
+                    auth: false,
+                    message: err.message
+                });
+            }
+        });
+    } catch (error) {
+        res.status(200).json({mesage: error})
+    }
 }
