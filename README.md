@@ -15,7 +15,7 @@ Data source: http://sirs.yankes.kemkes.go.id/rsonline/report/
 | POST | `/v3/user/reg` | register new user | No | all users |
 | PATCH | `/v3/users/:id` | update user by Id | Yes | admin or user it self |
 | DELETE | `/v3/users/:id` | delete user by Id | Yes | admin or user it self |
-| GET | [`/v3/hospitals`](https://balihospitaladdress.herokuapp.com/v3/hospital) | get all hospital | Yes | all users |
+| GET | [`/v3/hospitals`](https://balihospitaladdress.herokuapp.com/v3/hospitals) | get all hospital | Yes | all users |
 | GET | `/v3/hospital?search=:key` | get hospital address by keywords | Yes | all users |
 | GET | `/v3/hospital/:id` | get hospital address by Id | Yes | all users |
 | POST | `/v3/hospital` | send new hospital data | Yes | Only admin |
@@ -38,7 +38,7 @@ v3 chage log:
 * `+ fix response status`
 
 ### Demo
-[balihospitaladdress.herokuapp.com/v3/hospital](https://balihospitaladdress.herokuapp.com/v3/hospital) 
+[balihospitaladdress.herokuapp.com](https://balihospitaladdress.herokuapp.com/) 
 
 ### To run this app locally :
 * Clone this repo
