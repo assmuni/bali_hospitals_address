@@ -20,7 +20,7 @@ const locationSchema = new Schema({
     },
     fax: {
         type: String,
-        efault: '0'
+        default: '0'
     },
     email: {
         type: String,
@@ -52,7 +52,7 @@ const hospitalSchema = new Schema({
     location: locationSchema,
     last_update: {
         type: Date,
-        defaul: '0000-00-00'
+        default: '0000-00-00'
     }
 });
 
