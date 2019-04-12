@@ -18,7 +18,7 @@ Data source: http://sirs.yankes.kemkes.go.id/rsonline/report/
 | GET | [`/v3/hospitals`](https://balihospitaladdress.herokuapp.com/v3/hospitals) | get all hospital | Yes | all users |
 | GET | `/v3/hospital?search=:key` | get hospital address by keywords | Yes | all users |
 | GET | `/v3/hospital/:id` | get hospital address by Id | Yes | all users |
-| POST | `/v3/hospital` | send new hospital data | Yes | Only admin |
+| POST | `/v3/hospital` | send new hospital data | Yes | only admin |
 | PATCH | `/v3/hospital/:id` | edit hospital by Id | Yes | only admin |
 | DELETE | `/v3/hospital/:id` | delete hopital by Id | Yes | only admin |
 
@@ -43,6 +43,7 @@ v3 chage log:
 ### To run this app locally :
 * Clone this repo
 * Run `npm install`
+* Run `npm run start`
 * Open browser and server will be in `http://127.0.0.1:3000/`
 
 ### To access the route

@@ -52,7 +52,7 @@ const hospitalSchema = new Schema({
     location: locationSchema,
     last_update: {
         type: Date,
-        default: '0000-00-00'
+        required: true
     }
 });
 
